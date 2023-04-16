@@ -376,6 +376,9 @@ int main()
                     MutableCells = MakeMutableCells(Board);
                     text.setString(BoardToString(Board));
                     break;
+                case sf::Keyboard::Num0:
+                    numberCell = 0;
+                    break;
                 case sf::Keyboard::Num1:
                     numberCell = 1;
                     break;
