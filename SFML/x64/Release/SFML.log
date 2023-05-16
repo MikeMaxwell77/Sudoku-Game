@@ -1,15 +1,6 @@
-﻿  Source.cpp
-C:\Users\Michael\source\repos\Sudoku\SFML\Source.cpp(13,14): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\Michael\source\repos\Sudoku\SFML\Source.cpp(14,14): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\Michael\source\repos\Sudoku\SFML\Source.cpp(7,9): warning C4101: 'cell': unreferenced local variable
-C:\Users\Michael\source\repos\Sudoku\SFML\Source.cpp(291,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Michael\source\repos\Sudoku\SFML\Source.cpp(361,89): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\Michael\source\repos\Sudoku\SFML\Source.cpp(361,64): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\Michael\source\repos\Sudoku\SFML\Source.cpp(371,89): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\Michael\source\repos\Sudoku\SFML\Source.cpp(371,64): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  Generating code
-  2 of 319 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
+﻿  Generating code
+  0 of 319 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    10 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
-  SFML.vcxproj -> C:\Users\Michael\source\repos\Sudoku\x64\Release\SFML.exe
+  SFML.vcxproj -> C:\Users\Michael\OneDrive\Documents\GitHub\Sudoku-Game\x64\Release\SFML.exe
