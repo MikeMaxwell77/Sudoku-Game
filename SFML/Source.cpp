@@ -3,9 +3,9 @@
 #include <iostream>
 using namespace sf;
 using namespace std;
+const vector<int> CleanBoard(81);
 int WhichCell(int x, int y, int width, int height) {
     int cell;
-    //std::cout << "x " << x << " y " << y << " height " << height << " width " << width << '\n';
     if (y < 305 * height/310) {//we clicked on the board might need to be removed
         //adjust the size to 310/400 window
         x = x*310 / width;
@@ -36,15 +36,10 @@ bool inColumn(vector<int> a, int location, int number) {
 }
 bool inSquare(vector<int> a, int location, int number) {
     //top left box in 3x3 square
-    //cout<<"location: "<<location;
     location = location / 27 * 3 + location % 9 / 3;//get which square you are in indexed at zero
-    //cout<<"square: "<<location<<'\n';
     location = location / 3 * 27 + location % 3 * 3;//get us the top left box exactly.
-    //cout<<"start: "<<location<<'\n';
     for (int i = 0; i < 21; i++) {
-        //cout<<i<<" ";
         if (location + i > 80) {
-            //cout<<"here is the problem 1 "<< i;
         }
         if (a.at(location + i) == number) {
             return true;
@@ -102,7 +97,7 @@ bool complete(vector<int> a) {
     }
     return true;
 }
-void PrintBoard(vector<int> a) {
+/*void PrintBoard(vector<int> a) {
     int i, j;
     cout << "-----------------------------------" << endl;
     for (j = 0; j < 9; j++) {
@@ -111,21 +106,18 @@ void PrintBoard(vector<int> a) {
         }
         cout << '\n';
     }
-    cout << "-----------------------------------" << endl;
-}
+    //cout << "-----------------------------------" << endl;
+}*/
 vector<int> newBoard(vector<int> a, int i) {//find way so we dont need to do completed function 81 times
     //check if we are done
     if (i > 80) {
-        //PrintBoard(a);
         return a;
     }
     int j = 0, random = 0, temp;
     random = rand() % 8 + 1;
     for (j = 0; j < 9; j++) {
         temp = (random + j) % 9 + 1;
-        //cout << "here: "<<i<<'\n';
         if ((inColumn(a, i, temp) || inRow(a, i, temp) || inSquare(a, i, temp)) == false) {
-            //cout << "position i: " << i << " temp: " << temp << '\n';
             a.at(i) = temp;
             a = newBoard(a, i + 1);
             if (a.at(80)>0) { return a; }
@@ -202,24 +194,18 @@ int miniMatrix(vector<int> a, int square, int number) {
 bool solvable(vector<int> a) {
     int additions = 1;
     int position;
-    //PrintBoard(a);
     while (additions > 0) {
         additions = 0;
         for (int number = 1; number < 10; number++) {
             for (int square = 0; square < 9; square++) {
-                //cout << "mark 3a"<< test<<'\n';
-                //PrintBoard(a);
                 position = miniMatrix(a, square, number);
                 if(position > -1) {
                     additions=additions+1;
-                    //PrintBoard(a);
-                    //cout << "mark 3: square: "<<square<<" number "<<number << " position" <<position<<"cell" << square / 3 * 27 + square % 3 * 3 <<" "<< position + position / 3 * 6<<'\n';
                     a.at(square / 3 * 27 + square % 3 * 3 + position + position / 3 * 6) = number;
                 }
             }
         }
     }
-    //PrintBoard(a);
     return complete(a);
 }
 vector<int> makespaces(vector<int> a) {
@@ -239,13 +225,11 @@ vector<int> makespaces(vector<int> a) {
     while (check&&test<15) {
         test = test + 1;
         random = rand() % 40;
-        //cout << "mark 1:"<<random;
         if (a.at(random != 0)) {
             temp1 = a.at(random);
             temp2 = a.at(80 - random);
             a.at(random) = 0;
             a.at(80 - random) = 0;
-            //cout << "mark 2";
             check = solvable(a);
         }
     }
@@ -287,11 +271,8 @@ int main()
     vector<int> Board(81);
     vector<bool> MutableCells;//cells which can't be changed, becuase they are part of the original puzzle
     int i = 0;
-    //PrintBoard(Board);
     srand(time(0));
     Board=newBoard(Board, 0);
-    cout << endl;
-    PrintBoard(Board);
     Board = makespaces(Board);
     MutableCells = MakeMutableCells(Board);
 
@@ -302,7 +283,7 @@ int main()
 
     //make sprite for instruction page and sprite for board
     Texture boardPic;
-    boardPic.loadFromFile("C:\\Users\\Michael\\source\\repos\\SFML\\images\\Instruction.png");
+    boardPic.loadFromFile("../images/Instruction.png");// C:\\Users\\Michael\\source\\repos\\SFML\\images\\Instruction.png");
     sf::Sprite sprite(boardPic);
     //set the background
     sf::RectangleShape rectangle(sf::Vector2f(310.f, 310.f));
@@ -310,7 +291,7 @@ int main()
     //set font
     sf::Font font;
 
-    font.loadFromFile("C:\\Windows\\Fonts\\Consola.ttf");
+    font.loadFromFile("../Fonts/Consola.ttf");//C:\\Users\\Michael\\source\\repos\\SFML\\Fonts\\consola.ttf");
     //set numbers up
     sf::Text text;
     text.setFont(font);
@@ -341,7 +322,7 @@ int main()
         window.display();
     }
     //get sudoku game setup
-    boardPic.loadFromFile("C:\\Users\\Michael\\source\\repos\\SFML\\images\\sudoku9x9.png");
+    boardPic.loadFromFile("../images/sudoku9x9.png");
     window.setView(sf::View(sf::FloatRect(0, 0, 310, 310)));
     window.setSize(Vector2u(310, 310));
     sprite.setTexture(boardPic);
@@ -366,13 +347,10 @@ int main()
                 {
                 case sf::Keyboard::Space:
                     //experimenting to see if rand will mix up the table
-                    cout << "space mechanic" << endl;
                     selectCell = -1;
                     SelectedSquare.setPosition((selectCell % 9 * 33.33), selectCell / 9 * 33.88);
-                    Board = newBoard(Board, 0);
-                    PrintBoard(Board);
+                    Board = newBoard(CleanBoard, 0);
                     Board = makespaces(Board);
-                    PrintBoard(Board);
                     MutableCells = MakeMutableCells(Board);
                     text.setString(BoardToString(Board));
                     break;
@@ -437,7 +415,7 @@ int main()
                     numberCell = 9;
                     break;
                 default:
-                    //numberCell = 0;
+                    numberCell = 0;
                     break;
                 }
             }
@@ -451,7 +429,7 @@ int main()
         //check to see if window is completed
         if (complete(Board) && window.isOpen()) {
             //completed the puzzle start congradulations
-            boardPic.loadFromFile("C:\\Users\\Michael\\source\\repos\\SFML\\images\\Congradulations.png");
+            boardPic.loadFromFile("../images/Congradulations.png");
             window.setView(sf::View(sf::FloatRect(0, 0, 301, 116)));
             sprite.setTexture(boardPic);
             window.setSize(sf::Vector2u(301, 116));
@@ -474,7 +452,7 @@ int main()
                 text.setString(BoardToString(Board));
                 window.setView(sf::View(sf::FloatRect(0, 0, 310,310)));
                 window.setSize(Vector2u(310, 310));
-                boardPic.loadFromFile("C:\\Users\\Michael\\source\\repos\\SFML\\images\\sudoku9x9.png");
+                boardPic.loadFromFile("../images/sudoku9x9.png");
                 sprite.setTexture(boardPic);
             }
         }
